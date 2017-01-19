@@ -5,10 +5,6 @@ gem 'google-api-client', '>0.7'
 require 'google/api_client'
 require 'trollop'
 
-# Set DEVELOPER_KEY to the API key value from the APIs & auth > Credentials
-# tab of
-# {{ Google Cloud Console }} <{{ https://cloud.google.com/console }}>
-# Please ensure that you have enabled the YouTube Data API for your project.
 DEVELOPER_KEY = ''
 YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
@@ -28,17 +24,11 @@ class Video
   end
 
   def initialize
-    #opts = Trollop::options do
-    #  opt :q, 'Search term', :type => String, :default => 'Ferran'
-    #  opt :max_results, 'Max results', :type => :int, :default => 25
-    #end
 
    @client, @youtube = get_service
   end 
 
   def search(text_search="bot",max_results=1)
-     # Call the search.list method to retrieve results matching the specified
-     # query term.
      search_response = @client.execute!(
        :api_method => @youtube.search.list,
        :parameters => {
@@ -59,30 +49,3 @@ class Video
 
   end
 end
-#    videos = []
-#    channels = []
-#    playlists = []
-#
-#    # Add each result to the appropriate list, and then display the lists of
-#    # matching videos, channels, and playlists.
-#    search_response.data.items.each do |search_result|
-#       case search_result.id.kind
-#         when 'youtube#video'
-#           videos << "#{search_result.snippet.title} (#{search_result.id.videoId})"
-#         when 'youtube#channel'
-#           channels << "#{search_result.snippet.title} (#{search_result.id.channelId})"
-#         when 'youtube#playlist'
-#           playlists << "#{search_result.snippet.title} (#{search_result.id.playlistId})"
-#       end
-#    end
-# 
-#    puts "Videos:\n", videos, "\n"
-#    puts "Channels:\n", channels, "\n"
-#    puts "Playlists:\n", playlists, "\n"
-#    rescue Google::APIClient::TransmissionError => e
-#      puts e.result.body
-#    end
-#    
-    #p "Ey videooooooooooo"   
-    #return search_response 
-
